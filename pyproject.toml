@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "proj-fastapi-payments"
+version = "0.1.0"
+description = ""
+authors = ["jak010 <bluetoon@naver.com>"]
+readme = "README.md"
+packages = [{include = "proj_fastapi_payments", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.103.1"
+uvicorn = "^0.23.2"
+strip = "^0.0.1.dev14"
+stripe = "^6.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,23 @@
+version: "3"
+
+
+services:
+  #  app:
+  #    container_name: app
+  #    depends_on:
+  #      - stripe_mock
+  #    build:
+  #      context: .
+  #      dockerfile: app.Dockerfile
+  #    restart: always
+  #    ports:
+  #      - "8000:8000"
+
+  stripe_mock:
+    container_name: stripe_mock
+    environment:
+      - STRIPE_API_KEY=sk_test_12345
+    image: adrienverge/localstripe:latest
+    ports:
+      - "8420:8420"
+    tty: true # 이 옵션 없으면 attaching 에서 무한 대기됨 (https://stackoverflow.com/questions/38546755/docker-compose-keep-container-running)
