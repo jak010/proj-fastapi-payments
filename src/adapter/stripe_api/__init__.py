@@ -1,1 +1,2 @@
-from . import plan
+from . import plans
+from . import customers

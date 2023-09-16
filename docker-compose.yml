@@ -12,6 +12,20 @@ services:
   #    restart: always
   #    ports:
   #      - "8000:8000"
+  db:
+    image: mysql:5.7-debian
+    platform: linux/amd64 # mac에서 docker를 사용할 경우 이 옵션은 반드시 활성화 되어야 합니다.
+    ports:
+      - "9901:3306"
+    expose:
+      - "9901"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: payment_db
+    command:
+      - --character-set-server=utf8
+      - --collation-server=utf8_general_ci
+
 
   stripe_mock:
     container_name: stripe_mock

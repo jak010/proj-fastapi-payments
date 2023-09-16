@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List
 
 import stripe
 
@@ -6,45 +6,22 @@ from src.proj_fastapi_payments.config.setup import (
     STRIPE_API_KEY,
     STRIPE_API_BASE
 )
-import dataclasses
-from stripe.stripe_object import StripeObject
+from .dto import PlantDto
 
 stripe.api_key = STRIPE_API_KEY
 stripe.api_base = STRIPE_API_BASE
 
 
-@dataclasses.dataclass
-class PlantDto:
-    active: bool = None
-    amount: str = None
-    billing_scheme: str = None
-    created: int = None
-    currency: str = None
-    id: str = None
-    interval: str = None
-    interval_count: str = None
-    livemode: bool = None
-    metadata: dict = None
-    name: str = None
-    nickname: str = None
-    object: str = None
-    product: str = None
-    statement_descriptor: Any = None
-    tiers: str = None
-    tiers_mode: str = None
-    trial_period_days: str = None
-    usage_type: str = None
-
-    def __post_init__(self):
-        if isinstance(self.metadata, StripeObject):
-            self.metadata = self.metadata.to_dict_recursive()
-
-    def asdict(self):
-        return dataclasses.asdict(self)
-
-
 def retreieve_plan(id: str) -> PlantDto:
     return PlantDto(**stripe.Plan.retrieve(id=id))
+
+
+def find_plans() -> List[PlantDto]:
+    plans = []
+    for plan in stripe.Plan.list():
+        plans.append(PlantDto(**plan))
+
+    return plans
 
 
 def update_plan(
